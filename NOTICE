@@ -1,0 +1,38 @@
+phone-harness (private fork)
+
+This repository contains:
+
+1. Upstream phone-harness (MIT)
+   Source: https://github.com/ShawnPana/phone-harness
+   Snapshot: f568cb924a19bd7008e86c6191cf3b615cff4b15
+   Copyright (c) 2026 shawn pana
+   License text: LICENSE
+
+   Covered paths (not an exhaustive legal list; treat src/ + original
+   install.md / SKILL.md / pyproject.toml / phone-harness launcher /
+   docs/upstream-readme.md as upstream unless a file says otherwise):
+   - src/phone_harness/ (except Darwin-gate comments added in admin.py / run.py)
+   - phone-harness (POSIX launcher)
+   - install.md
+   - SKILL.md
+   - pyproject.toml
+   - LICENSE
+   - docs/upstream-readme.md
+
+2. Knock private additions (proprietary, all rights reserved)
+   License text: LICENSE.KNOCK
+   - README.md (this private tree's README)
+   - AGENTS.md
+   - NOTICE
+   - LICENSE.KNOCK
+   - docs/iphone-12.md
+   - docs/windows-host.md
+   - docs/mac-bootstrap.md
+   - docs/usage.md
+   - scripts/
+   - skill/
+   - phone-harness.cmd
+   - agent-workspace/agent_helpers.py extensions beyond tap_icon
+
+Upstream remains MIT. Do not relicense it. Do not publish this private
+tree without an explicit operator decision.

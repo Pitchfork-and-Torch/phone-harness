@@ -27,6 +27,11 @@ def main():
         return
     if args or sys.stdin.isatty():
         sys.exit(USAGE)
+    if sys.platform != "darwin":
+        sys.exit(
+            "phone-harness actions require macOS Sequoia+ with iPhone "
+            f"Mirroring.\nThis host is {sys.platform}. Run --doctor "
+            "or scripts/doctor.ps1. Do not attempt taps from here.")
     code = sys.stdin.read()
     if not code.strip():
         sys.exit(USAGE)

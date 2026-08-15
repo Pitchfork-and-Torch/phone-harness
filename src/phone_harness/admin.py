@@ -13,6 +13,15 @@ def run_doctor():
     print("phone-harness doctor\n")
     ok = True
 
+    darwin = sys.platform == "darwin"
+    ok &= _check(
+        "macOS host (iPhone Mirroring transport)", darwin,
+        f"this host is {sys.platform}; pyobjc / Vision / CGEvent / "
+        "iPhone Mirroring are Darwin-only. Install and run on macOS Sequoia+.")
+    if not darwin:
+        print("\nfix the FAILs above, then re-run")
+        return 1
+
     try:
         import Quartz, Vision, AppKit  # noqa: F401
         ok &= _check("pyobjc frameworks (Quartz, Vision, AppKit)", True)

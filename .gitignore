@@ -3,3 +3,12 @@ __pycache__/
 dist/
 *.egg-info/
 .venv/
+.DS_Store
+captures/
+*.png
+!docs/**/*.png
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
