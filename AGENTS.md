@@ -1,6 +1,6 @@
 # phone-harness (folder rules)
 
-Private iPhone control via macOS iPhone Mirroring. Not a public product.
+iPhone control via macOS iPhone Mirroring. Public MIT fork.
 
 ## Transport
 
@@ -36,7 +36,7 @@ Private iPhone control via macOS iPhone Mirroring. Not a public product.
 
 ## PII / GitHub
 
-- This GitHub repo is **private**. Still: no home paths, no personal email,
+- This GitHub repo is **public**. No home paths, no personal email,
   no phone numbers, no tokens, no Apple ID in the tree.
 - Secret-scan before every commit or push.
 - Leave `gh` on Pitchfork-and-Torch after GitHub work.

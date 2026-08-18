@@ -1,4 +1,4 @@
-phone-harness (private fork)
+phone-harness (public fork)
 
 This repository contains:
 
@@ -19,9 +19,9 @@ This repository contains:
    - LICENSE
    - docs/upstream-readme.md
 
-2. Knock private additions (proprietary, all rights reserved)
+2. Pitchfork-and-Torch additions (MIT)
    License text: LICENSE.KNOCK
-   - README.md (this private tree's README)
+   - README.md
    - AGENTS.md
    - NOTICE
    - LICENSE.KNOCK
@@ -34,5 +34,4 @@ This repository contains:
    - phone-harness.cmd
    - agent-workspace/agent_helpers.py extensions beyond tap_icon
 
-Upstream remains MIT. Do not relicense it. Do not publish this private
-tree without an explicit operator decision.
+Upstream remains MIT. Do not relicense it.

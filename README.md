@@ -1,10 +1,11 @@
-# phone-harness (private)
+# phone-harness
 
-Private ops tree for driving a real iPhone through **macOS iPhone Mirroring**.
-Not a public product. Not a Windows HID stack.
+Drive a real iPhone through **macOS iPhone Mirroring**.
+Not a Windows HID stack.
 
 Upstream core (MIT): [ShawnPana/phone-harness](https://github.com/ShawnPana/phone-harness)
-at `f568cb924a19bd7008e86c6191cf3b615cff4b15`. Knock additions under `LICENSE.KNOCK`.
+at `f568cb924a19bd7008e86c6191cf3b615cff4b15`. Pitchfork-and-Torch additions
+are also MIT (`LICENSE.KNOCK`).
 
 The transport is the Mac's iPhone Mirroring window: capture + Apple Vision OCR
 for eyes, HID-level events for hands. There is no DOM. The capture is ground
@@ -114,6 +115,6 @@ Day-to-day agent rules: `SKILL.md` (Mac) and `skill/SKILL.md` (Grok). Helpers:
 
 - Upstream core and original docs: MIT, Copyright (c) 2026 shawn pana.
   Full text in `LICENSE`.
-- Knock-authored files (`docs/`, `scripts/`, `skill/`, `AGENTS.md`,
-  `LICENSE.KNOCK`, `NOTICE`, Windows launcher, iPhone 12 helpers): proprietary.
+- Pitchfork-and-Torch files (`docs/`, `scripts/`, `skill/`, `AGENTS.md`,
+  `LICENSE.KNOCK`, `NOTICE`, Windows launcher, iPhone 12 helpers): MIT.
   See `LICENSE.KNOCK` and `NOTICE`.
