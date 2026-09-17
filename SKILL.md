@@ -27,8 +27,9 @@ PY
 
 - Invoke as `phone-harness`. Use heredocs for multi-line commands.
 - Helpers are pre-imported. All coordinates are global screen points.
-- `ensure_mirroring()` launches and focuses the window; input helpers focus it
-  automatically before posting events.
+- `ensure_mirroring()` checks the session and focuses the window; it never
+  launches the app or connects the phone (see "Connection is the user's job").
+  Input helpers focus the window automatically before posting events.
 
 ## Screen Workflow
 

@@ -47,7 +47,8 @@ def run_doctor():
 
     running = mirror.running_app() is not None
     _check(f"{mirror.APP_NAME} running", running,
-           "will auto-launch on first use — not fatal")
+           "the harness never launches it — open iPhone Mirroring and connect "
+           "the phone yourself, then re-run")
 
     win = mirror.find_window()
     _check("mirroring window found", win is not None,
