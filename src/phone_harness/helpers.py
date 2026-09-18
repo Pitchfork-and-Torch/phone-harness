@@ -158,12 +158,16 @@ def _win():
 def swipe(direction, distance=0.4):
     """swipe('up'|'down'|'left'|'right')  -  a touch-drag centered in the window.
     Direction is finger motion: swipe('up') moves content up (scrolls down)."""
+    if direction not in ("up", "down", "left", "right"):
+        raise ValueError(f"unknown direction {direction!r}")
+    # distance<=0 made dx=dy=0 and used to raise "unknown direction", which
+    # blamed the axis instead of the zero/negative length.
+    if distance is None or distance <= 0:
+        raise ValueError(f"swipe distance must be positive, got {distance!r}")
     w = _win()
     cx, cy = w["x"] + w["w"] / 2, w["y"] + w["h"] / 2
     dx = {"left": -1, "right": 1}.get(direction, 0) * w["w"] * distance
     dy = {"up": -1, "down": 1}.get(direction, 0) * w["h"] * distance
-    if not dx and not dy:
-        raise ValueError(f"unknown direction {direction!r}")
     # Fast, short drag = a momentum flick. A slow drag barely registers on iOS
     # (it won't even flip a Home-Screen page); the flick is what snaps pages
     # and carousels. For scrolling lists use scroll()/scroll_collect() instead.
