@@ -46,12 +46,15 @@ def run_doctor():
                  "requires macOS Sequoia+ with a paired iPhone")
 
     running = mirror.running_app() is not None
-    _check(f"{mirror.APP_NAME} running", running,
-           "the harness never launches it - open iPhone Mirroring and connect the phone yourself, then re-run")
+    ok &= _check(
+        f"{mirror.APP_NAME} running", running,
+        "the harness never launches it - open iPhone Mirroring and "
+        "connect the phone yourself, then re-run")
 
     win = mirror.find_window()
-    _check("mirroring window found", win is not None,
-           "open iPhone Mirroring once manually to pair the phone")
+    ok &= _check(
+        "mirroring window found", win is not None,
+        "open iPhone Mirroring once manually to pair the phone")
 
     if win:
         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as f:
