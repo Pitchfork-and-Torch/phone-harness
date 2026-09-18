@@ -169,6 +169,11 @@ def tap(x, y):
 
 
 def long_press(x, y, duration=0.8):
+    # duration<=0 made long_press a silent tap (sleep 0) or ValueError from
+    # time.sleep(negative). Reject with a clear error  -  distinct from
+    # drag/scroll_wheel steps and swipe/scroll amount guards.
+    if duration is None or duration <= 0:
+        raise ValueError(f"long_press duration must be positive, got {duration!r}")
     pid, win = _ctx()
     _emit(_LMOUSE_DOWN, x, y, pid, win)
     time.sleep(duration)
