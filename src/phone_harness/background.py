@@ -84,14 +84,26 @@ def activate():
 
 
 def ensure_window(timeout=5.0):
+    """Return mirroring window bounds without activating.
+
+    Honors `timeout` like mirror.ensure_window: if the app is running but the
+    phone window is not visible yet (still connecting), poll until it appears
+    or the deadline elapses. Previously ignored timeout and failed immediately.
+    """
     win = find_window()
-    if win is None:
-        if running_app() is None:
-            raise RuntimeError(
-                f"{APP_NAME} isn't running  -  open it and connect your phone.")
+    if win is not None:
+        return win
+    if running_app() is None:
         raise RuntimeError(
-            f"{APP_NAME} has no phone window  -  connect your phone, then retry.")
-    return win
+            f"{APP_NAME} isn't running  -  open it and connect your phone.")
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        time.sleep(0.5)
+        win = find_window()
+        if win is not None:
+            return win
+    raise RuntimeError(
+        f"{APP_NAME} has no phone window  -  connect your phone, then retry.")
 
 
 # --- capture (eyes), no focus ---
