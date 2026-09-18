@@ -178,6 +178,10 @@ def swipe(direction, distance=0.4):
 def scroll(amount=300):
     """Scroll-gesture at window center. Positive scrolls content down the way
     a trackpad two-finger-up does; use swipe() when momentum matters."""
+    # amount<=0 made scroll_wheel a no-op (0) or silently reversed direction.
+    # Mirror swipe(): reject non-positive with a clear error.
+    if amount is None or amount <= 0:
+        raise ValueError(f"scroll amount must be positive, got {amount!r}")
     w = _win()
     mirror.scroll_wheel(-amount, w["x"] + w["w"] / 2, w["y"] + w["h"] / 2)
 
