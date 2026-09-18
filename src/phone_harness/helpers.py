@@ -229,6 +229,11 @@ def scroll_screen(direction="up", amount=0.6, settle=2.5, moved_thresh=0.6):
     sign = {"up": -1, "down": 1}.get(direction)  # 'up' reveals content below
     if sign is None:
         raise ValueError(f"direction must be 'up' or 'down', got {direction!r}")
+    # amount is a fraction of window height. Non-positive used to no-op (0) or
+    # reverse the chosen direction (negative * sign flips the axis) without a
+    # clear error — distinct from scroll()/swipe() which already reject this.
+    if amount is None or amount <= 0:
+        raise ValueError(f"scroll_screen amount must be positive, got {amount!r}")
     before = _text_set(_content_texts())
     # Wheel scroll, not drag: a slow touch-drag barely moves an iOS list and
     # bounces back, while wheel events advance it deterministically (proven on
