@@ -120,7 +120,14 @@ def ocr(min_confidence=0.3):
 
 
 def find_text(query, exact=False):
-    """OCR results matching query (case-insensitive substring by default)."""
+    """OCR results matching query (case-insensitive substring by default).
+
+    Empty / whitespace-only queries are rejected: ``"" in text`` is True for
+    every OCR box, so an empty query used to match the entire screen and
+    ``tap_text("")`` would blindly tap the first box.
+    """
+    if not (query or "").strip():
+        raise ValueError("find_text query must be non-empty")
     q = query.lower()
     return [o for o in ocr()
             if (o["text"].lower() == q if exact else q in o["text"].lower())]
@@ -133,6 +140,10 @@ def tap_text(query, index=0, exact=False):
     if not hits:
         visible = [o["text"] for o in ocr()][:30]
         raise RuntimeError(f"no visible text matches {query!r}; saw: {visible}")
+    if index < 0 or index >= len(hits):
+        raise RuntimeError(
+            f"tap_text index {index} out of range for {query!r} "
+            f"({len(hits)} match(es))")
     hit = hits[index]
     tap(hit["x"], hit["y"])
     return hit
