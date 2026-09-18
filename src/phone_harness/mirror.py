@@ -150,6 +150,10 @@ def long_press(x, y, duration=0.8):
 
 def drag(x1, y1, x2, y2, duration=0.35, steps=14):
     """Touch-drag (what iOS sees as a swipe)."""
+    # steps<=0 made `i / steps` and `duration / steps` ZeroDivisionError.
+    # Reject with a clear ValueError, same spirit as swipe/scroll amount checks.
+    if steps is None or steps <= 0:
+        raise ValueError(f"drag steps must be positive, got {steps!r}")
     _focus()
     _post_mouse(Quartz.kCGEventMouseMoved, x1, y1)
     time.sleep(0.1)

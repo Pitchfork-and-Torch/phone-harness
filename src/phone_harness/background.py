@@ -177,6 +177,9 @@ def long_press(x, y, duration=0.8):
 
 def drag(x1, y1, x2, y2, duration=0.35, steps=14):
     """Touch-drag (an iOS swipe), delivered with the window unfocused."""
+    # steps<=0 made `i / steps` and `duration / steps` ZeroDivisionError.
+    if steps is None or steps <= 0:
+        raise ValueError(f"drag steps must be positive, got {steps!r}")
     pid, win = _ctx()
     _emit(_LMOUSE_DOWN, x1, y1, pid, win)
     time.sleep(0.02)
