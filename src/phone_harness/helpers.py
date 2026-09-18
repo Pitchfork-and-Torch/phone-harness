@@ -227,8 +227,14 @@ def scroll_screen(direction="up", amount=0.6, settle=2.5, moved_thresh=0.6):
         prev, prev_boxes = cur, boxes
         time.sleep(0.35)
     after = prev or frozenset()
-    return {"moved": _overlap(before, after) < moved_thresh,
-            "overlap": round(_overlap(before, after), 3),
+    # Empty OCR on either side is not evidence the list advanced — Vision can
+    # return nothing on a blank interstitial or mid-transition frame. Treating
+    # overlap(empty,*) as 0.0 made moved=True forever, so scroll_until /
+    # scroll_collect never hit reached-end and ran to max_scrolls.
+    overlap = _overlap(before, after)
+    moved = bool(before and after) and overlap < moved_thresh
+    return {"moved": moved,
+            "overlap": round(overlap, 3),
             "before": before, "after": after, "boxes": prev_boxes or []}
 
 
