@@ -234,6 +234,11 @@ def scroll_screen(direction="up", amount=0.6, settle=2.5, moved_thresh=0.6):
     # clear error  -  distinct from scroll()/swipe() which already reject this.
     if amount is None or amount <= 0:
         raise ValueError(f"scroll_screen amount must be positive, got {amount!r}")
+    # settle<=0 made the settle loop a no-op (deadline already past), so
+    # after-OCR stayed empty and moved was always False — silent false end.
+    # Distinct from amount/steps guards on scroll_screen/scroll/drag/wheel.
+    if settle is None or settle <= 0:
+        raise ValueError(f"scroll_screen settle must be positive, got {settle!r}")
     before = _text_set(_content_texts())
     # Wheel scroll, not drag: a slow touch-drag barely moves an iOS list and
     # bounces back, while wheel events advance it deterministically (proven on
