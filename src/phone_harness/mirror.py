@@ -168,6 +168,10 @@ def drag(x1, y1, x2, y2, duration=0.35, steps=14):
 
 def scroll_wheel(dy, x, y, steps=6):
     """Scroll-gesture at (x, y). Positive dy scrolls content up (finger down)."""
+    # steps<=0 made `dy / steps` ZeroDivisionError (mirror) — same class of
+    # bug as drag(steps=0), but a different entry point.
+    if steps is None or steps <= 0:
+        raise ValueError(f"scroll_wheel steps must be positive, got {steps!r}")
     _focus()
     _post_mouse(Quartz.kCGEventMouseMoved, x, y)
     time.sleep(0.1)

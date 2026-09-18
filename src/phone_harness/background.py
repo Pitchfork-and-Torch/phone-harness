@@ -201,6 +201,10 @@ def scroll_wheel(dy, x, y, steps=6):
 
     Sign matches the wheel path it replaces: dy < 0 flicks the finger up so
     content scrolls up and reveals what's below (scroll_screen's "up")."""
+    # steps<=0 made `i / steps` ZeroDivisionError on the flick path —
+    # distinct from drag(steps=...) which already rejects this.
+    if steps is None or steps <= 0:
+        raise ValueError(f"scroll_wheel steps must be positive, got {steps!r}")
     pid, win = _ctx()
     if dy < 0:                                   # reveal content below
         y0, y1 = win["y"] + win["h"] * 0.72, win["y"] + win["h"] * 0.28
